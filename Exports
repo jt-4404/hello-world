@@ -1,0 +1,208 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyMA4k33wwhIODHB3HaIz78T",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/jt-4404/hello-world/blob/master/Exports\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "id": "wgduvGGIdqLg"
+      },
+      "outputs": [],
+      "source": [
+        "def new_func():\n",
+        "    #!/usr/bin/env python\n",
+        "    import json\n",
+        "    import requests\n",
+        "    import psycopg2\n",
+        "    import psycopg2.extras\n",
+        "    return json,requests,psycopg2\n",
+        "\n",
+        "json, requests, psycopg2 = new_func()\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data = {\n",
+        "    'token': '0028BE6355F82D9D97AD3D6CA7184410',\n",
+        "    'content': 'dag',\n",
+        "    'format': 'json',\n",
+        "    'returnFormat': 'json',\n",
+        " }\n",
+        "\n",
+        "resp = requests.post('https://redcap.dellmed.utexas.edu/api/',data=data)\n",
+        "print('HTTP Status: ' + str(resp.status_code))\n",
+        "\n",
+        "resp = str(resp.json())\n",
+        "resp = json.loads(resp.replace(\"'\", '\"'))\n",
+        "resp = json.dumps(resp, indent=4)\n",
+        " \n",
+        "print(resp)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mEFdRDYjeCdg",
+        "outputId": "3e84bd37-20ad-4bf4-fdeb-3ba8bb13f44e"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "HTTP Status: 200\n",
+            "[\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Andrews Center\",\n",
+            "        \"unique_group_name\": \"andrews_center\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Bluebonnet Trails\",\n",
+            "        \"unique_group_name\": \"bluebonnet_trails\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Border Region\",\n",
+            "        \"unique_group_name\": \"border_region\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Burke\",\n",
+            "        \"unique_group_name\": \"burke\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Central Counties\",\n",
+            "        \"unique_group_name\": \"central_counties\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"CHCS\",\n",
+            "        \"unique_group_name\": \"chcs\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Coastal Plains\",\n",
+            "        \"unique_group_name\": \"coastal_plains\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Comm Healthcore\",\n",
+            "        \"unique_group_name\": \"comm_healthcore\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Denton County\",\n",
+            "        \"unique_group_name\": \"denton_county\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Harris Center\",\n",
+            "        \"unique_group_name\": \"harris_center\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Integral Care\",\n",
+            "        \"unique_group_name\": \"integral_care\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Metrocare\",\n",
+            "        \"unique_group_name\": \"metrocare\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Pecan Valley\",\n",
+            "        \"unique_group_name\": \"pecan_valley\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Spindletop\",\n",
+            "        \"unique_group_name\": \"spindletop\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"Texana Centers\",\n",
+            "        \"unique_group_name\": \"texana_centers\"\n",
+            "    },\n",
+            "    {\n",
+            "        \"data_access_group_name\": \"West Texas\",\n",
+            "        \"unique_group_name\": \"west_texas\"\n",
+            "    }\n",
+            "]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hostname = \"localhost\"\n",
+        "database = \"test\"\n",
+        "username = \"postgres\"\n",
+        "pwd = \"\"\n",
+        "port_id = 5432\n",
+        "conn = None\n",
+        "# with clause handles the cursor\n",
+        "# cur = None\n",
+        "try:\n",
+        "    with psycopg2.connect(\n",
+        "        host = hostname, \n",
+        "        dbname = database,\n",
+        "        user = username,\n",
+        "        password = pwd,\n",
+        "        port = port_id) as conn:\n",
+        "\n",
+        "     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:\n",
+        "    \n",
+        "        cur.execute('drop table if exists data_access_group')\n",
+        "        \n",
+        "        create_script = ''' \n",
+        "            CREATE TABLE data_access_group (\n",
+        "                id integer NOT NULL GENERATED ALWAYS AS IDENTITY,\n",
+        "                name text  UNIQUE NOT NULL,\n",
+        "                unique_name text UNIQUE NOT NULL,\n",
+        "                CONSTRAINT group_pk PRIMARY KEY (id),\n",
+        "                CONSTRAINT access_group_unique_index UNIQUE (name)\n",
+        "            )\n",
+        "           '''\n",
+        " except Exception as error:\n",
+        "    print(error)  "
+      ],
+      "metadata": {
+        "id": "4729IKTCfuqu",
+        "outputId": "8aba9126-0529-41a1-d2c5-3a07e51f0541",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 130
+        }
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "IndentationError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-6-ad53750224ef>\"\u001b[0;36m, line \u001b[0;32m30\u001b[0m\n\u001b[0;31m    except Exception as error:\u001b[0m\n\u001b[0m                              ^\u001b[0m\n\u001b[0;31mIndentationError\u001b[0m\u001b[0;31m:\u001b[0m unindent does not match any outer indentation level\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
